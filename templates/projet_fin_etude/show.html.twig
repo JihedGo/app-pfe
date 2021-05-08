@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}ProjetFinEtude{% endblock %}
+
+{% block body %}
+    <h1>ProjetFinEtude</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ projet_fin_etude.id }}</td>
+            </tr>
+            <tr>
+                <th>Title</th>
+                <td>{{ projet_fin_etude.title }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ projet_fin_etude.description }}</td>
+            </tr>
+            <tr>
+                <th>PublishedAt</th>
+                <td>{{ projet_fin_etude.publishedAt ? projet_fin_etude.publishedAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>IsAffected</th>
+                <td>{{ projet_fin_etude.isAffected ? 'Yes' : 'No' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('projet_fin_etude_index') }}">back to list</a>
+
+    <a href="{{ path('projet_fin_etude_edit', {'id': projet_fin_etude.id}) }}">edit</a>
+
+    {{ include('projet_fin_etude/_delete_form.html.twig') }}
+{% endblock %}

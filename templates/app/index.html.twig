@@ -1,0 +1,100 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}BIENVENUE{% endblock %}
+
+{% block body %}
+   <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+            <a class="navbar-brand" href="{{ path('app') }}">Gestion PFEs</a>
+            <button class="btn btn-link btn-sm order-1 order-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
+            
+        </nav>
+        <div id="layoutSidenav">
+            <div id="layoutSidenav_nav">
+                {% include 'app/sidebar.html.twig' %}
+            </div>
+            {% block content %}
+            <div id="layoutSidenav_content">
+                <main>
+                    <div class="container-fluid">
+                        <h1 class="mt-4">Dashboard</h1>
+                        <ol class="breadcrumb mb-4">
+                            <li class="breadcrumb-item active">Bienvenue ! 
+                            {% if app.user.gender == "male" %} Mr. {{ app.user.firstName }} {{ app.user.lastName }} {% else %} M. {{ app.user.firstName }} {{ app.user.lastName }} {% endif %}<a href="{{ path('app_logout') }}">Déconnexion</a></li>
+                        </ol>
+                        {% if app.user.role == "ROLE_AGENT" %}
+                        <div class="row">
+                            <div class="col-xl-3 col-md-6">
+                                <div class="card bg-primary text-white mb-4">
+                                    <div class="card-body">Etudiants</div>
+                                    <div class="card-footer d-flex align-items-center justify-content-between">
+                                        <a class="small text-white stretched-link" href="#">50</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-3 col-md-6">
+                                <div class="card bg-warning text-white mb-4">
+                                    <div class="card-body">Enseignants</div>
+                                    <div class="card-footer d-flex align-items-center justify-content-between">
+                                        <a class="small text-white stretched-link" href="#">50</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-3 col-md-6">
+                                <div class="card bg-success text-white mb-4">
+                                    <div class="card-body">Projets validés</div>
+                                    <div class="card-footer d-flex align-items-center justify-content-between">
+                                        <a class="small text-white stretched-link" href="#">50</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-3 col-md-6">
+                                <div class="card bg-danger text-white mb-4">
+                                    <div class="card-body">Projets en cours</div>
+                                    <div class="card-footer d-flex align-items-center justify-content-between">
+                                        <a class="small text-white stretched-link" href="#">50</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% endif %}
+                        <div class="col-md-12">
+                            
+                                <div class="card">
+                                    <div class="card-header text-white text-center bg-dark">
+                                        Informations Generales
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="row">
+                                        <div class="col-md-6">
+                                            <ul class="list-group">
+
+                                                <li class="list-group-item">CIN: {{ app.user.email }}</li>
+                                                <li class="list-group-item">Prénom: {{ app.user.firstName }}</li>
+                                                <li class="list-group-item">Nom: {{ app.user.lastName }}</li>
+                                                <li class="list-group-item">Tél: {{ app.user.tel }}</li>
+                                                <li class="list-group-item">Gender: {{ app.user.address }}</li>
+                                            </ul>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <ul class="list-group">
+                                                <li class="list-group-item">Email: {{ app.user.emailAddress }}</li>
+                                                <li class="list-group-item">Adresse: {{ app.user.address }}</li>
+                                                <li class="list-group-item">Classe: {% if app.user.classe %}{{ app.user.classe.label }}{% else %}--{% endif %}</li>
+                                                <li class="list-group-item">Department: {% if app.user.department %}{{ app.user.department.label }}{% else %}--{% endif %}</li>
+                                            </ul>
+                                        </div>
+                                        </div>
+                                        
+                                        
+                                    </div>
+                                </div>
+                           
+                        </div>
+                      
+                    </div>
+                </main>
+                {% include 'app/footer.html.twig' %}
+            </div>
+             {% endblock %}
+        </div>
+{% endblock %}

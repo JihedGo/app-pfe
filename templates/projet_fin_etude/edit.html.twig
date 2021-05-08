@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit ProjetFinEtude{% endblock %}
+
+{% block body %}
+    <h1>Edit ProjetFinEtude</h1>
+
+    {{ include('projet_fin_etude/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('projet_fin_etude_index') }}">back to list</a>
+
+    {{ include('projet_fin_etude/_delete_form.html.twig') }}
+{% endblock %}

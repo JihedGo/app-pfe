@@ -1,0 +1,85 @@
+
+<nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+                    <div class="sb-sidenav-menu">
+                        <div class="nav">
+                            <div class="sb-sidenav-menu-heading"></div>
+                            
+                                <a class="nav-link" href="{{ path('app') }}">
+                                    <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                                    Dashboard
+                                </a>
+                                {% if app.user.role == "ROLE_AGENT" %}
+                                <div class="sb-sidenav-menu-heading">Administration</div>
+                                <a class="nav-link" href="{{ path('department_index') }}">
+                                    <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
+                                    Departements
+                                </a>
+                                <a class="nav-link" href="{{ path('classe_index') }}">
+                                    <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
+                                    Classes
+                                </a>
+
+                                <a class="nav-link" href="{{ path('salle_index') }}">
+                                    <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
+                                    Salles
+                                </a>
+                           
+                            <div class="sb-sidenav-menu-heading">Projets fin d'études</div>
+                            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
+                               <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
+                                Liste des PFEs
+                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                            </a>
+                            <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
+                                <nav class="sb-sidenav-menu-nested nav">
+                                    <a class="nav-link" href="layout-static.html">PFEs confirmés</a>
+                                    <a class="nav-link" href="layout-sidenav-light.html">PFEs non confirmés</a>
+                                    <a class="nav-link" href="layout-sidenav-light.html">Etudiants affectés</a>
+                                    <a class="nav-link" href="layout-sidenav-light.html">Etudiants non affectés</a>
+                                </nav>
+                            </div>
+                            <a class="nav-link" href="{{ path('enseignant_index') }}">
+                                <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
+                                Enseignants
+                            </a>
+                            <a class="nav-link" href="{{ path('etudiant_index') }}">
+                                <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
+                                Etudiants
+                            </a>
+                            {% endif %}
+                            {% if app.user.role == "ROLE_STUDENT" or app.user.role == "ROLE_TEACHER" %}
+                            <a class="nav-link" href="{{ path('projet_fin_etude_index') }}">
+                                <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
+                                Liste Offres
+                            </a>
+                            <!--<a class="nav-link" href="{{ path('etudiant_index') }}">
+                                <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
+                                Propositions Etudiants
+                            </a>
+                            <a class="nav-link" href="{{ path('etudiant_index') }}">
+                                <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
+                                Mes Propositions
+                            </a>-->
+                            <a class="nav-link" href="{{ path('get_demandes') }}">
+                                <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
+                                Demandes
+                            </a>
+                            <a class="nav-link" href="{{ path('get_encadrements') }}">
+                                <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
+                                Mes Encadrements
+                            </a>
+                            {% endif %}
+
+                        </div>
+                    </div>
+                    <div class="sb-sidenav-footer">
+                        <div class="small">Connecté en tant que:</div>
+                        {% if app.user.role == "ROLE_AGENT" %}
+                            Agent Administratif
+                        {% elseif app.user.role == 'ROLE_STUDENT'  %}
+                            Etudiant
+                        {% else %}
+                            Enseignant
+                        {% endif %}
+                    </div>
+                </nav>

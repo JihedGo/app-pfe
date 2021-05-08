@@ -1,0 +1,85 @@
+{% extends 'app/index.html.twig' %}
+
+{% block title %}Liste PFEs{% endblock %}
+
+{% block content %}
+<div id="layoutSidenav_content">
+                <main>
+                    <div class="container-fluid">
+                        <h1 class="mt-4">Offres PFEs</h1>
+                        <ol class="breadcrumb mb-4">
+                            <li class="breadcrumb-item"><a href="{{ path('app') }}">Dashboard</a></li>
+                            <li class="breadcrumb-item active">Offres PFEs</li>
+                        </ol>
+                        
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                <i class="fas fa-table mr-1"></i>
+                                Liste de pfes
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <a href="{{ path('projet_fin_etude_new') }}" class="btn btn-primary mb-2"> + Proposer un PFE</a>
+                           <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                        <thead>
+                                             <tr>
+                                                <th>Titre</th>
+                                                <th>Description</th>
+                                                <th>Proposé par</th>
+                                                <th>Publié à</th>
+                                                <th></th>
+                                                <!--<th>actions</th>-->
+                                            </tr>
+                                        </thead>
+                                        <tfoot>
+                                            <tr>
+                                            
+                                                <th>Titre</th>
+                                                <th>Description</th>
+                                                <th>Proposé par</th>
+                                                <th>Publié à</th>
+                                                <th></th>
+                                                <!--<th>actions</th>-->
+                                            </tr>
+                                        </tfoot>
+                                        <tbody>
+                                        {% for projet_fin_etude in projet_fin_etudes %}
+                                            <tr>
+                                                <td>{{ projet_fin_etude.title }}</td>
+                                                <td>{{ projet_fin_etude.description }}</td>
+                                                <td>{% if projet_fin_etude.enseignant == app.user %} Moi {% else %} {% if projet_fin_etude.enseignant.gender == "female" %} M. {% else %} Mr.{% endif %} {{ projet_fin_etude.enseignant.firstName }} {{ projet_fin_etude.enseignant.lastName }} {% endif %}</td>
+                                                <td>{{ projet_fin_etude.publishedAt ? projet_fin_etude.publishedAt|date('Y-m-d H:i:s') : '' }}</td>
+                                                <td>
+                                                {% if app.user.role == "ROLE_STUDENT" %}
+                                                    <a href="{{ path('apply_to_pfe', {'id':projet_fin_etude.id } ) }}" class="btn btn-success btn-sm">postuler</a>
+                                                {% endif %}
+</td>
+                                                <!--<td>
+                                                    <a href="{{ path('projet_fin_etude_show', {'id': projet_fin_etude.id}) }}">show</a>
+                                                    <a href="{{ path('projet_fin_etude_edit', {'id': projet_fin_etude.id}) }}">edit</a>
+                                                </td>-->
+                                            </tr>
+                                         {% else %}
+                                            <tr>
+                                                <td colspan="6">no records found</td>
+                                            </tr>
+                                        {% endfor %}
+                                        </tbody>
+                                    </table>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </main>
+                {% include 'app/footer.html.twig' %}
+            </div>
+            {% endblock %}
+            {% block javascripts %}
+            <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" crossorigin="anonymous"></script>
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+            <script src="js/scripts.js"></script>
+            <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js" crossorigin="anonymous"></script>
+            <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js" crossorigin="anonymous"></script>
+            <script src="{{ asset('assets/demo/datatables-demo.js') }}"></script>
+            {% endblock %}
