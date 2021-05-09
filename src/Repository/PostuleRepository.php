@@ -3,8 +3,11 @@
 namespace App\Repository;
 
 use App\Entity\Postule;
+use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Component\Security\Core\Security;
+use Symfony\Component\Validator\Constraints\NotNull;
 
 /**
  * @method Postule|null find($id, $lockMode = null, $lockVersion = null)
@@ -14,8 +17,10 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class PostuleRepository extends ServiceEntityRepository
 {
-    public function __construct(ManagerRegistry $registry)
+    private $security;
+    public function __construct(ManagerRegistry $registry, Security $security)
     {
+        $this->security = $security;
         parent::__construct($registry, Postule::class);
     }
 
@@ -47,4 +52,19 @@ class PostuleRepository extends ServiceEntityRepository
         ;
     }
     */
+
+    public function getRefusedPostules(User $user){
+        //$user = $this->security->getUser();
+        $q = $this->createQueryBuilder('p')
+                  ->select('p')
+                  ->where('p.student = :val')
+                  ->setParameter('val',$user)
+                  ->andWhere('p.isAccepted = :val2')
+                  ->setParameter(':val2',false)
+                  ->andWhere('p.reason is not null')
+                  ->getQuery()
+                  ->getResult();
+        return $q;
+
+    }
 }

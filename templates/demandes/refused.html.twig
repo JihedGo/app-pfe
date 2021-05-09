@@ -23,28 +23,26 @@
                                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                         <thead>
                                             <tr>
-                                                <th>#</th>
-                                                <th>Pfe</th>
-                                                <th>Etudiant</th>
+                                                <th>Projet</th>
+                                                <th>Enseignant</th>
+                                                <th>Justification de refus</th>
                                                 <!--<th>Actions</th>-->
                                             </tr>
                                         </thead>
                                         <tfoot>
                                             <tr>
-                                                <th>#</th>
-                                                <th>Pfe</th>
+                                                <th>Projet</th>
                                                 <th>Etudiant</th>
+                                                 <th>Justification de refus</th>
                                                 <!--<th>Actions</th>-->
                                             </tr>
                                         </tfoot>
                                         <tbody>
                                         {% for d in demandes %}
                                             <tr>
-                                                <td>#{{ d.id }}</td>
                                                 <td>{{ d.pfe.title }}</td>
-                                                <td>{{ d.student.firstName }} {{ d.student.lastName }}</td>
-                                                <td><a href="{{ path('accept_demand',{'id':d.id}) }}" class="btn btn-outline-success">Accepter</a></td>
-                                                <td><a href="{{ path('give_reason_refusal',{'id':d.id}) }}" class="btn btn-outline-danger">Refuser</a></td>
+                                                <td>{{ d.pfe.enseignant.firstName }} {{ d.pfe.enseignant.lastName }}</td>
+                                                <td class="bg-warning"><p class="raw">{{ d.reason }}</p></td>
                                             </tr>
                                         {% endfor %} 
                                         </tbody>

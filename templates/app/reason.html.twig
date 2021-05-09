@@ -19,7 +19,10 @@
                                Refus d'une demande
                             </div>
                             <div class="card-body">
-                                
+                                {{ form_start(form) }}
+                                {{ form_widget(form) }}
+                                <button type="submit" class="btn btn-sm btn-info mt-2">Envoyer</button>
+                                {{ form_end(form) }}
                             </div>
                         </div>
                     </div>

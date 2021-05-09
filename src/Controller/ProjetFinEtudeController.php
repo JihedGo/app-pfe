@@ -21,6 +21,33 @@ class ProjetFinEtudeController extends AbstractController
      */
     public function index(ProjetFinEtudeRepository $projetFinEtudeRepository): Response
     {
+
+        $user = $this->getUser();
+        if($user->getRole() === "ROLE_STUDENT")
+        {
+            
+            /*if($user->getPostules()){
+                $projets = [];
+                foreach($user->getPostules() as $myPostule){
+                    foreach($projetFinEtudeRepository->findAll() as $p){
+                        if($p == $myPostule->getPfe()){
+                            continue;
+                        }else{
+                            array_push($projets, $p);
+                        }
+                    }
+                }
+                return $this->render('projet_fin_etude/index.html.twig', [
+                    'projet_fin_etudes' => $projets,
+                ]);
+            }else{
+                return $this->render('projet_fin_etude/index.html.twig', [
+                    'projet_fin_etudes' => $projetFinEtudeRepository->findAll(),
+                ]);
+            }*/
+           
+        }
+        
         return $this->render('projet_fin_etude/index.html.twig', [
             'projet_fin_etudes' => $projetFinEtudeRepository->findAll(),
         ]);
@@ -32,7 +59,7 @@ class ProjetFinEtudeController extends AbstractController
     public function pfes(PostuleRepository $postuleRepo): Response
     {
         return $this->render('projet_fin_etude/pfes.html.twig', [
-            'projet_fin_etudes' => $postuleRepo->findAll(),
+            'projet_fin_etudes' => $postuleRepo->findBy(['isAccepted'=>true]),
         ]);
     }
 

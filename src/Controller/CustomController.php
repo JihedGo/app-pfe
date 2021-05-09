@@ -7,6 +7,7 @@ use App\Entity\ProjetFinEtude;
 use App\Entity\Salle;
 use App\Entity\User;
 use App\Form\ReasonType;
+use App\Repository\PostuleRepository;
 use DateTime;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -51,7 +52,7 @@ class CustomController extends AbstractController
         $myPropositions = $user->getProjetFinEtudes();
         $dmds = [];
         foreach($myPropositions as $prop){
-            $demandes = $this->getDoctrine()->getRepository(Postule::class)->findBy(['pfe'=>$prop,'isAccepted'=>false]);
+            $demandes = $this->getDoctrine()->getRepository(Postule::class)->findBy(['pfe'=>$prop,'reason'=>null]);
             foreach($demandes as $d){
                 array_push($dmds, $d);
             }
@@ -178,7 +179,7 @@ class CustomController extends AbstractController
             $this->getDoctrine()->getManager()->flush();
             return $this->redirectToRoute('get_demandes');
         }
-        return $this->render('app/reason.html.twig');
+        return $this->render('app/reason.html.twig',['form'=>$form->createView()]);
     }
 
     /**
@@ -196,6 +197,14 @@ class CustomController extends AbstractController
      */
     public function detail(Postule $pfe){
         return $this->render('app/detail-pfe.html.twig', ['postule'=>$pfe]);
+    }
+
+    /**
+     * @Route("/refused_demands", name="get_refused_demands")
+     */
+    public function getRefusedDemands(PostuleRepository $postuleRepo){
+        $user = $this->getUser();
+        return $this->render('demandes/refused.html.twig',['demandes'=>$postuleRepo->getRefusedPostules($user)]);
     }
 
     

@@ -20,11 +20,11 @@
                             <div class="card-body">
                                 <div class="table-responsive">
                                  {% for message in app.flashes('info') %}
-            <div class="alert alert-info">
-                {{ message }}
-            </div>
-        {% endfor %}
-                                    <a href="{{ path('projet_fin_etude_new') }}" class="btn btn-primary mb-2"> + Proposer un PFE</a>
+                                    <div class="alert alert-info">
+                                        {{ message }}
+                                    </div>
+                                 {% endfor %}
+                                   {% if app.user.role == "ROLE_TEACHER" %} <a href="{{ path('projet_fin_etude_new') }}" class="btn btn-primary mb-2"> + Proposer un PFE</a> {% endif %}
                            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                         <thead>
                                              <tr>
