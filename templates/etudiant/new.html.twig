@@ -1,11 +1,31 @@
-{% extends 'base.html.twig' %}
+{% extends 'app/index.html.twig' %}
 
 {% block title %}New User{% endblock %}
 
-{% block body %}
-    <h1>Create new User</h1>
-
-    {{ include('etudiant/_form.html.twig') }}
-
-    <a href="{{ path('etudiant_index') }}">back to list</a>
+{% block content %}
+  
+<div id="layoutSidenav_content">
+                <main>
+                    <div class="container-fluid">
+                        <h1 class="mt-4">Etudiants</h1>
+                        <ol class="breadcrumb mb-4">
+                            <li class="breadcrumb-item"><a href="{{ path('app') }}">Dashboard</a></li>
+                            <li class="breadcrumb-item active">Etudiants</li>
+                        </ol>
+                        
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                <i class="fas fa-table mr-1"></i>
+                                Ajouter un etudiant
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                          {{ include('etudiant/_form.html.twig') }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </main>
+                {% include 'app/footer.html.twig' %}
+            </div>
 {% endblock %}

@@ -29,8 +29,8 @@ class AppFixtures extends Fixture
         $this->loadDepts($manager);
         $this->loadClasse($manager);
         $this->loadSalles($manager);
-        $this->loadEnseignants($manager);
-        $this->loadEtudiants($manager);
+        /*$this->loadEnseignants($manager);
+        $this->loadEtudiants($manager);*/
         $manager->flush();
     }
 
@@ -52,7 +52,7 @@ class AppFixtures extends Fixture
     }
 
     public function loadDepts(ObjectManager $manager){
-        for ($i=1; $i <= 12 ; $i++) {
+        for ($i=1; $i <= 5 ; $i++) {
             $dept = new Department();
             $this->setReference("dept_$i", $dept); 
             $dept->setLabel("Departement $i");
@@ -61,11 +61,11 @@ class AppFixtures extends Fixture
     }
 
     public function loadClasse(ObjectManager $manager){
-        for ($i=1; $i <= 20 ; $i++) { 
+        for ($i=1; $i <= 5 ; $i++) { 
 
             $classe = new Classe();
             $this->setReference("classe_$i", $classe);
-            $classe->setDepartment($this->getReference("dept_".rand(1,12)));
+            $classe->setDepartment($this->getReference("dept_".rand(1,5)));
             $classe->setLabel("Classe $i");
             $classe->setNiveau(self::NIVEAU[rand(0,2)]);
             $manager->persist($classe);
@@ -73,7 +73,7 @@ class AppFixtures extends Fixture
     }
 
     public function loadSalles(ObjectManager $manager){
-        for ($i=1; $i <= 20 ; $i++) { 
+        for ($i=1; $i <= 5 ; $i++) { 
             $salle = new Salle();
             $salle->setLabel("SALLE $i");
             $salle->setIsDispo(true);
@@ -82,7 +82,7 @@ class AppFixtures extends Fixture
     }
 
     public function loadEnseignants(ObjectManager $manager){
-        for($i = 1 ; $i <= 5; $i++){
+        for($i = 1 ; $i <= 2; $i++){
             $admin = new User();
             $this->setReference("ens_$i", $admin);
             $faker = Factory::create();
@@ -95,7 +95,7 @@ class AppFixtures extends Fixture
               ->setCin(rand(11111111,99999999))
               ->setGrade(self::GRADE[rand(0,4)])
               ->setEmailAddress($faker->email)
-              ->setDepartment($this->getReference("dept_".rand(1,12)))
+              ->setDepartment($this->getReference("dept_".rand(1,5)))
               ->setPassword($this->encoder->encodePassword($admin, "secret#123"))
               ->setAddress($faker->address)
               ;
