@@ -101,12 +101,24 @@ class User implements UserInterface
      */
     private $postules;
 
+    /**
+     * @ORM\OneToMany(targetEntity=ProjetFinEtude::class, mappedBy="reporter")
+     */
+    private $reporters;
+
+    /**
+     * @ORM\OneToMany(targetEntity=ProjetFinEtude::class, mappedBy="president")
+     */
+    private $presidentes;
+
 
 
     public function __construct()
     {
         $this->projetFinEtudes = new ArrayCollection();
         $this->postules = new ArrayCollection();
+        $this->reporters = new ArrayCollection();
+        $this->presidentes = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -384,6 +396,71 @@ class User implements UserInterface
         }
 
         return $this;
+    }
+
+    /**
+     * @return Collection|ProjetFinEtude[]
+     */
+    public function getReporters(): Collection
+    {
+        return $this->reporters;
+    }
+
+    public function addReporter(ProjetFinEtude $reporter): self
+    {
+        if (!$this->reporters->contains($reporter)) {
+            $this->reporters[] = $reporter;
+            $reporter->setReporter($this);
+        }
+
+        return $this;
+    }
+
+    public function removeReporter(ProjetFinEtude $reporter): self
+    {
+        if ($this->reporters->removeElement($reporter)) {
+            // set the owning side to null (unless already changed)
+            if ($reporter->getReporter() === $this) {
+                $reporter->setReporter(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|ProjetFinEtude[]
+     */
+    public function getPresidentes(): Collection
+    {
+        return $this->presidentes;
+    }
+
+    public function addPresidente(ProjetFinEtude $presidente): self
+    {
+        if (!$this->presidentes->contains($presidente)) {
+            $this->presidentes[] = $presidente;
+            $presidente->setPresident($this);
+        }
+
+        return $this;
+    }
+
+    public function removePresidente(ProjetFinEtude $presidente): self
+    {
+        if ($this->presidentes->removeElement($presidente)) {
+            // set the owning side to null (unless already changed)
+            if ($presidente->getPresident() === $this) {
+                $presidente->setPresident(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function __toString()
+    {
+        return $this->firstName.' '.$this->lastName;
     }
 
     

@@ -6,7 +6,7 @@
 <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid">
-                        <h1 class="mt-4">Offres PFEs</h1>
+                        <h1 class="mt-4">Liste des PFEs</h1>
                         <ol class="breadcrumb mb-4">
                             <li class="breadcrumb-item"><a href="{{ path('app') }}">Dashboard</a></li>
                             <li class="breadcrumb-item active">Offres PFEs</li>
@@ -24,15 +24,15 @@
                 {{ message }}
             </div>
         {% endfor %}
-                                    <a href="{{ path('projet_fin_etude_new') }}" class="btn btn-primary mb-2"> + Proposer un PFE</a>
+                                  
                            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                         <thead>
                                              <tr>
                                                 <th>Titre</th>
-                                                <th>Description</th>
-                                                <th>Proposé par</th>
-                                                <th>Publié à</th>
-                                                <th></th>
+                                                <th>Encadreur</th>
+                                                <th>Etudiant</th>
+                                                <th>Etat</th>
+                                                <th>Actions</th>
                                                 <!--<th>actions</th>-->
                                             </tr>
                                         </thead>
@@ -40,29 +40,33 @@
                                             <tr>
                                             
                                                 <th>Titre</th>
-                                                <th>Description</th>
-                                                <th>Proposé par</th>
-                                                <th>Publié à</th>
-                                                <th></th>
+                                                <th>Encadreur</th>
+                                                <th>Etudiant</th>
+                                                <th>Etat</th>
+                                                <th>Actions</th>
                                                 <!--<th>actions</th>-->
                                             </tr>
                                         </tfoot>
                                         <tbody>
-                                        {% for projet_fin_etude in projet_fin_etudes %}
+                                        {% for postule in projet_fin_etudes %}
+                                            
                                             <tr>
-                                                <td>{{ projet_fin_etude.title }}</td>
-                                                <td>{{ projet_fin_etude.description }}</td>
-                                                <td>{% if projet_fin_etude.enseignant == app.user %} Moi {% else %} {% if projet_fin_etude.enseignant.gender == "female" %} M. {% else %} Mr.{% endif %} {{ projet_fin_etude.enseignant.firstName }} {{ projet_fin_etude.enseignant.lastName }} {% endif %}</td>
-                                                <td>{{ projet_fin_etude.publishedAt ? projet_fin_etude.publishedAt|date('Y-m-d H:i:s') : '' }}</td>
+                                                <td>{{ postule.pfe.title }}</td>
+                                                <td>{% if postule.pfe.enseignant == app.user %} Moi {% else %} {% if postule.pfe.enseignant.gender == "female" %} M. {% else %} Mr.{% endif %} {{ postule.pfe.enseignant.firstName }} {{ postule.pfe.enseignant.lastName }} {% endif %}</td>
+                                                <td>{{ postule.student.firstName }} {{ postule.student.lastName }}</td>
                                                 <td>
-                                                {% if app.user.role == "ROLE_STUDENT" %}
-                                                    <a href="{{ path('apply_to_pfe', {'id':projet_fin_etude.id } ) }}" class="btn btn-success btn-sm">postuler</a>
+                                                    {% if postule.isAccepted %} <span class="badge badge-success">confirmé</span>  {% else  %} <span class="badge badge-primary">en attente</span> {% endif %}
+                                                </td>
+                                                
+                                                {% if not postule.pfe.isConfirmedAdmin %}
+                                                <td>
+                                                    <a href="{{ path('validate_pfe', {'id': postule.pfe.id}) }}" class="btn btn-sm btn-outline-primary">Valider</a>
+                                                </td>
+                                                {% else %}
+                                                <td>
+                                                    <a href="{{ path('pfe_detail', {'id': postule.id}) }}" class="btn btn-sm btn-outline-primary">Détails</a>
+                                                </td>
                                                 {% endif %}
-</td>
-                                                <!--<td>
-                                                    <a href="{{ path('projet_fin_etude_show', {'id': projet_fin_etude.id}) }}">show</a>
-                                                    <a href="{{ path('projet_fin_etude_edit', {'id': projet_fin_etude.id}) }}">edit</a>
-                                                </td>-->
                                             </tr>
                                          {% else %}
                                             <tr>

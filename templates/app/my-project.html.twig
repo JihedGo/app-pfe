@@ -1,0 +1,38 @@
+{% extends 'app/index.html.twig' %}
+
+{% block title %}Projets Fin Etudes{% endblock %}
+
+
+            {% block content %}
+            <div id="layoutSidenav_content">
+                <main>
+                    <div class="container-fluid">
+                        <h1 class="mt-4">PFE</h1>
+                        <ol class="breadcrumb mb-4">
+                            <li class="breadcrumb-item"><a href="{{ path('app') }}">Dashboard</a></li>
+                            <li class="breadcrumb-item active">PFE</li>
+                        </ol>
+                        
+                        <div class="card mb-4">
+                            
+                            <div class="card-header bg-success text-white text-center">
+                                Mon Projet Fin Etude
+                            </div>
+                            <div class="card-body">
+                            {% if not project %}
+                                <div class="alert alert-info text-center">Vous n'etes pas affecté à un PFE</div>
+                            {% else %}
+                                <ul class"list-group">
+                                    <li class="list-group-item">
+                                        Titre Projet: <b>{{ project.pfe.title }}</p>
+                                    </li>
+                                </ul>
+                            {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </main>
+                {% include 'app/footer.html.twig' %}
+            </div>
+            {% endblock %}
+      

@@ -16,6 +16,7 @@ class AppFixtures extends Fixture
     private $encoder ;
     const GENDER  = ['male','female'];
     const NIVEAU  = ['Mastere Recherche','Mastere PRO', 'Licence'];
+    const GRADE   = ['PES','AC','MA','MC','PR'];
     public function __construct(UserPasswordEncoderInterface $encoder)
     {
         $this->encoder = $encoder;
@@ -28,6 +29,8 @@ class AppFixtures extends Fixture
         $this->loadDepts($manager);
         $this->loadClasse($manager);
         $this->loadSalles($manager);
+        $this->loadEnseignants($manager);
+        $this->loadEtudiants($manager);
         $manager->flush();
     }
 
@@ -59,7 +62,9 @@ class AppFixtures extends Fixture
 
     public function loadClasse(ObjectManager $manager){
         for ($i=1; $i <= 20 ; $i++) { 
+
             $classe = new Classe();
+            $this->setReference("classe_$i", $classe);
             $classe->setDepartment($this->getReference("dept_".rand(1,12)));
             $classe->setLabel("Classe $i");
             $classe->setNiveau(self::NIVEAU[rand(0,2)]);
@@ -74,5 +79,53 @@ class AppFixtures extends Fixture
             $salle->setIsDispo(true);
             $manager->persist($salle);
         }
+    }
+
+    public function loadEnseignants(ObjectManager $manager){
+        for($i = 1 ; $i <= 5; $i++){
+            $admin = new User();
+            $this->setReference("ens_$i", $admin);
+            $faker = Factory::create();
+            $admin->setRole("ROLE_TEACHER")
+              ->setEmail(rand(11111111,99999999))
+              ->setTel($faker->phoneNumber)
+              ->setFirstName($faker->firstName)
+              ->setLastName($faker->lastName)
+              ->setGender(self::GENDER[rand(0,1)])
+              ->setCin(rand(11111111,99999999))
+              ->setGrade(self::GRADE[rand(0,4)])
+              ->setEmailAddress($faker->email)
+              ->setDepartment($this->getReference("dept_".rand(1,12)))
+              ->setPassword($this->encoder->encodePassword($admin, "secret#123"))
+              ->setAddress($faker->address)
+              ;
+              $manager->persist($admin);
+        }
+        
+        $manager->flush();
+    }
+
+    public function loadEtudiants(ObjectManager $manager){
+        for($i = 1 ; $i <= 5; $i++){
+            $admin = new User();
+            $this->setReference("ens_$i", $admin);
+        $faker = Factory::create();
+        $admin->setRole("ROLE_STUDENT")
+              ->setEmail(rand(11111111,99999999))
+              ->setTel($faker->phoneNumber)
+              ->setFirstName($faker->firstName)
+              ->setLastName($faker->lastName)
+              ->setGender(self::GENDER[rand(0,1)])
+              ->setCin(rand(11111111,99999999))
+              ->setEmailAddress($faker->email)
+              ->setClasse($this->getReference("classe_".rand(1,12)))
+              ->setPassword($this->encoder->encodePassword($admin, "secret#123"))
+              ->setAddress($faker->address)
+              ;
+              $manager->persist($admin);
+            }
+        
+        
+        $manager->flush();
     }
 }

@@ -55,4 +55,9 @@ class Salle
 
         return $this;
     }
+
+    public function __toString()
+    {
+        return $this->label;
+    }
 }

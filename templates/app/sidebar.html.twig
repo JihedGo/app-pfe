@@ -23,9 +23,15 @@
                                     <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
                                     Salles
                                 </a>
+
+                               
                            
                             <div class="sb-sidenav-menu-heading">Projets fin d'études</div>
-                            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
+                             <a class="nav-link" href="{{ path('projet_fin_etude_administration') }}">
+                                    <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
+                                    Liste des PFE
+                                </a>
+                            <!--<a class="nav-link collapsed" href="{{ path('projet_fin_etude_index') }}" data-toggle="collapse" data-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
                                <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
                                 Liste des PFEs
                                 <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
@@ -37,7 +43,7 @@
                                     <a class="nav-link" href="layout-sidenav-light.html">Etudiants affectés</a>
                                     <a class="nav-link" href="layout-sidenav-light.html">Etudiants non affectés</a>
                                 </nav>
-                            </div>
+                            </div>-->
                             <a class="nav-link" href="{{ path('enseignant_index') }}">
                                 <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
                                 Enseignants
@@ -47,7 +53,7 @@
                                 Etudiants
                             </a>
                             {% endif %}
-                            {% if app.user.role == "ROLE_STUDENT" or app.user.role == "ROLE_TEACHER" %}
+                            {% if app.user.role == "ROLE_TEACHER" %}
                             <a class="nav-link" href="{{ path('projet_fin_etude_index') }}">
                                 <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
                                 Liste Offres
@@ -67,6 +73,24 @@
                             <a class="nav-link" href="{{ path('get_encadrements') }}">
                                 <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
                                 Mes Encadrements
+                            </a>
+                            {% endif %}
+                              {% if app.user.role == "ROLE_STUDENT"%}
+                            <a class="nav-link" href="{{ path('projet_fin_etude_index') }}">
+                                <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
+                                Liste Offres
+                            </a>
+                            <!--<a class="nav-link" href="{{ path('etudiant_index') }}">
+                                <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
+                                Propositions Etudiants
+                            </a>
+                            <a class="nav-link" href="{{ path('etudiant_index') }}">
+                                <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
+                                Mes Propositions
+                            </a>-->
+                            <a class="nav-link" disabled href="{{ path('my_project') }}">
+                                <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
+                                Mon Projet
                             </a>
                             {% endif %}
 

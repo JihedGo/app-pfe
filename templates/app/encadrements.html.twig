@@ -23,28 +23,32 @@
                                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                         <thead>
                                             <tr>
-                                                <th>#</th>
-                                                <th>Pfe</th>
+                                                <th>PFE</th>
                                                 <th>Etudiant</th>
+                                                <th>Salle</th>
+                                                <th>Rapporteur</th>
+                                                <th>Président</th>
                                                 <!--<th>Actions</th>-->
                                             </tr>
                                         </thead>
                                         <tfoot>
                                             <tr>
-                                                <th>#</th>
-                                                <th>Pfe</th>
+                                                <th>PFE</th>
                                                 <th>Etudiant</th>
+                                                <th>Salle</th>
+                                                <th>Rapporteur</th>
+                                                <th>Président</th>
                                                 <!--<th>Actions</th>-->
                                             </tr>
                                         </tfoot>
                                         <tbody>
                                         {% for p in encadrements %}
                                             <tr>
-                                                <td>#{{ p.id }}</td>
                                                 <td>{{ p.pfe.title }}</td>
-                                                <td>{{ p.postule.student.firstName }} {{ p.postule.student.lastName }}</td>
-                                                <td><a href="{{ path('accept_demand',{'id':p.id}) }}" class="btn btn-outline-success">Accepter</a></td>
-                                                <td><a href="{{ path('refuse_demand',{'id':p.id}) }}" class="btn btn-outline-danger">Refuser</a></td>
+                                                <td>{{ p.student.firstName}} {{ p.student.lastName}}</td>
+                                                <td>{% if p.pfe.salle is null %}<span class="badge badge-warning">en attente l'administration </span>  {% else %} <span class="badge badge-success">{{ p.pfe.salle.label }}</span>{% endif %}</td>
+                                                <td>{% if p.pfe.reporter is null %}<span class="badge badge-warning">en attente l'administration </span>  {% else %} <span class="badge badge-success">{{ p.pfe.reporter.firstName }} {{ p.pfe.reporter.lastName }}</span>{% endif %}</td>
+                                                <td>{% if p.pfe.president is null %}<span class="badge badge-warning">en attente l'administration </span>  {% else %} <span class="badge badge-success">{{ p.pfe.president.firstName }} {{ p.pfe.president.lastName }}</span>{% endif %}</td>
                                             </tr>
                                         {% endfor %} 
                                         </tbody>

@@ -54,6 +54,26 @@ class ProjetFinEtude
      */
     private $postules;
 
+    /**
+     * @ORM\OneToOne(targetEntity=Salle::class, cascade={"persist", "remove"})
+     */
+    private $salle;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="reporters")
+     */
+    private $reporter;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="presidentes")
+     */
+    private $president;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $dateSoutenance;
+
     public function __construct()
     {
         $this->postules = new ArrayCollection();
@@ -171,6 +191,54 @@ class ProjetFinEtude
                 $postule->setPfe(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getSalle(): ?Salle
+    {
+        return $this->salle;
+    }
+
+    public function setSalle(?Salle $salle): self
+    {
+        $this->salle = $salle;
+
+        return $this;
+    }
+
+    public function getReporter(): ?User
+    {
+        return $this->reporter;
+    }
+
+    public function setReporter(?User $reporter): self
+    {
+        $this->reporter = $reporter;
+
+        return $this;
+    }
+
+    public function getPresident(): ?User
+    {
+        return $this->president;
+    }
+
+    public function setPresident(?User $president): self
+    {
+        $this->president = $president;
+
+        return $this;
+    }
+
+    public function getDateSoutenance(): ?\DateTimeInterface
+    {
+        return $this->dateSoutenance;
+    }
+
+    public function setDateSoutenance(?\DateTimeInterface $dateSoutenance): self
+    {
+        $this->dateSoutenance = $dateSoutenance;
 
         return $this;
     }

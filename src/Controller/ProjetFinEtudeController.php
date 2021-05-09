@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\ProjetFinEtude;
 use App\Form\ProjetFinEtudeType;
+use App\Repository\PostuleRepository;
 use App\Repository\ProjetFinEtudeRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -22,6 +23,16 @@ class ProjetFinEtudeController extends AbstractController
     {
         return $this->render('projet_fin_etude/index.html.twig', [
             'projet_fin_etudes' => $projetFinEtudeRepository->findAll(),
+        ]);
+    }
+
+    /**
+     * @Route("/pfe/administration", name="projet_fin_etude_administration", methods={"GET"})
+     */
+    public function pfes(PostuleRepository $postuleRepo): Response
+    {
+        return $this->render('projet_fin_etude/pfes.html.twig', [
+            'projet_fin_etudes' => $postuleRepo->findAll(),
         ]);
     }
 
