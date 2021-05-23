@@ -27,7 +27,7 @@
                                 <div class="card bg-primary text-white mb-4">
                                     <div class="card-body">Etudiants</div>
                                     <div class="card-footer d-flex align-items-center justify-content-between">
-                                        <a class="small text-white stretched-link" href="#">50</a>
+                                        <a class="small text-white stretched-link" href="#">{{ students }}</a>
                                     </div>
                                 </div>
                             </div>
@@ -35,7 +35,7 @@
                                 <div class="card bg-warning text-white mb-4">
                                     <div class="card-body">Enseignants</div>
                                     <div class="card-footer d-flex align-items-center justify-content-between">
-                                        <a class="small text-white stretched-link" href="#">50</a>
+                                        <a class="small text-white stretched-link" href="#">{{ teachers }}</a>
                                     </div>
                                 </div>
                             </div>
@@ -72,15 +72,24 @@
                                                 <li class="list-group-item">Prénom: {{ app.user.firstName }}</li>
                                                 <li class="list-group-item">Nom: {{ app.user.lastName }}</li>
                                                 <li class="list-group-item">Tél: {{ app.user.tel }}</li>
-                                                <li class="list-group-item">Gender: {{ app.user.address }}</li>
+                                                <li class="list-group-item">Gender: {{ app.user.gender }}</li>
                                             </ul>
                                         </div>
                                         <div class="col-md-6">
                                             <ul class="list-group">
                                                 <li class="list-group-item">Email: {{ app.user.emailAddress }}</li>
                                                 <li class="list-group-item">Adresse: {{ app.user.address }}</li>
-                                                <li class="list-group-item">Classe: {% if app.user.classe %}{{ app.user.classe.label }}{% else %}--{% endif %}</li>
-                                                <li class="list-group-item">Department: {% if app.user.department %}{{ app.user.department.label }}{% else %}--{% endif %}</li>
+                                                {% if app.user.role != "ROLE_AGENT" %}
+                                                    <li class="list-group-item">Classe: {% if app.user.classe %}{{ app.user.classe.label }}{% else %}--{% endif %}</li>
+                                                    <li class="list-group-item">
+                                                        Department: 
+                                                            {% if app.user.department %}
+                                                                {{ app.user.department.label }}
+                                                            {% else %}
+                                                                {{ app.user.classe.department.label }}
+                                                            {% endif %}
+                                                    </li>
+                                                {% endif %}
                                             </ul>
                                         </div>
                                         </div>

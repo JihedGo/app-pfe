@@ -27,6 +27,7 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         $this->security = $security;
     }
 
+
     /**
      * Used to upgrade (rehash) the user's password automatically over time.
      */
@@ -69,7 +70,14 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         ;
     }
     */
-
+    public function getChefs(){
+        return $this->createQueryBuilder('u')
+                    ->where('u.role = :r')
+                    ->setParameter('r','ROLE_TEACHER')
+                    ->andWhere('u.isChef = :n')
+                    ->setParameter('n', false);
+                    
+    }
     public function getUserByClassAndIsNotAffected(Classe $classe){
         return $this->createQueryBuilder('u')
                     ->where('u.classe = :cls')

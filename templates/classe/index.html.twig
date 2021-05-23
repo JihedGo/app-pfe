@@ -23,29 +23,50 @@
                                         <thead>
                                             <tr>
                                                 <th>#</th>
-                                                
-                                                <th>Classe</th>
                                                 <th>Departement</th>
-                                                <th>Niveau</th>
+                                                <th>Classes</th>
                                                 <!--<th>Actions</th>-->
                                             </tr>
                                         </thead>
                                         <tfoot>
                                             <tr>
                                                 <th>#</th>
-                                                <th>Classe</th>
                                                 <th>Departement</th>
-                                                <th>Niveau</th>
+                                                <th>Classes</th>
                                                 <!--<th>Actions</th>-->
                                             </tr>
                                         </tfoot>
                                         <tbody>
-                                        {% for classe in classes %}
+                                        {% for dep in depts %}
+                                            
                                             <tr>
-                                                <td>#{{ classe.id }}</td>
-                                                <td>{{ classe.label }}</td>
-                                                <td>{{ classe.department.label }}</td>
-                                                <td>{{ classe.niveau }}</td>
+                                                <td>#{{ dep.id }}</td>
+                                                <td>#{{ dep.label }}</td>
+                                                <td rows="3">
+                                                    <table class="table table-hover">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Classe</th>
+                                                                <th>Niveau</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            {% if dep.classes %}
+                                                                {% for cls in dep.classes  %}
+                                                                    <tr>
+                                                                        <td>{{ cls.label }}</td>
+                                                                        <td>{{ cls.niveau }}</td>
+                                                                    </tr>
+                                                                {% endfor %}
+                                                             {% else %}
+                                                                <tr>
+                                                                    <td>aucune classe trouvée</td>
+                                                                </tr>
+                                                             {% endif %}
+                                                        </tbody>
+                                                    </table>
+                                                    
+                                                </td>
                                             </tr>
                                         {% endfor %} 
                                         </tbody>

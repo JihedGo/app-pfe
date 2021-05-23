@@ -9,7 +9,13 @@
                                     Dashboard
                                 </a>
                                 {% if app.user.role == "ROLE_AGENT" %}
+                                
                                 <div class="sb-sidenav-menu-heading">Administration</div>
+                                
+                                <a class="nav-link" href="{{ path('enseignant_index') }}">
+                                    <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
+                                    Enseignants
+                                </a>
                                 <a class="nav-link" href="{{ path('department_index') }}">
                                     <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
                                     Departements
@@ -44,10 +50,6 @@
                                     <a class="nav-link" href="layout-sidenav-light.html">Etudiants non affectés</a>
                                 </nav>
                             </div>-->
-                            <a class="nav-link" href="{{ path('enseignant_index') }}">
-                                <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
-                                Enseignants
-                            </a>
                             <a class="nav-link" href="{{ path('etudiant_index') }}">
                                 <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
                                 Etudiants

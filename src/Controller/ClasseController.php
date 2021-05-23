@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Classe;
+use App\Entity\Department;
 use App\Form\ClasseType;
 use App\Repository\ClasseRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -20,8 +21,10 @@ class ClasseController extends AbstractController
      */
     public function index(ClasseRepository $classeRepository): Response
     {
+        $depts = $this->getDoctrine()->getRepository(Department::class)->findAll();
         return $this->render('classe/index.html.twig', [
             'classes' => $classeRepository->findAll(),
+            'depts'   => $depts
         ]);
     }
 

@@ -24,23 +24,23 @@
                                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                         <thead>
                                             <tr>
-                                                <th>#</th>
                                                 <th>Departement</th>
+                                                <th>Chef departement</th>
                                                 <!--<th>Actions</th>-->
                                             </tr>
                                         </thead>
                                         <tfoot>
                                             <tr>
-                                                <th>#</th>
                                                 <th>Departement</th>
+                                                <th>Chef departement</th>
                                                 <!--<th>Actions</th>-->
                                             </tr>
                                         </tfoot>
                                         <tbody>
                                         {% for dep in departments %}
                                             <tr>
-                                                <td>#{{ dep.id }}</td>
                                                 <td>{{ dep.label }}</td>
+                                                <td>{{ dep.chef.fullname }}</td>
                                             </tr>
                                         {% endfor %} 
                                         </tbody>

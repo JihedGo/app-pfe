@@ -111,6 +111,11 @@ class User implements UserInterface
      */
     private $presidentes;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $isChef;
+
 
 
     public function __construct()
@@ -463,5 +468,18 @@ class User implements UserInterface
         return $this->firstName.' '.$this->lastName;
     }
 
+    public function getIsChef(): ?bool
+    {
+        return $this->isChef;
+    }
+
+    public function setIsChef(bool $isChef): self
+    {
+        $this->isChef = $isChef;
+
+        return $this;
+    }
+    
+    
     
 }

@@ -34,6 +34,11 @@ class Department
      */
     private $classes;
 
+    /**
+     * @ORM\OneToOne(targetEntity=User::class, cascade={"persist", "remove"})
+     */
+    private $chef;
+
     public function __construct()
     {
         $this->users = new ArrayCollection();
@@ -120,5 +125,17 @@ class Department
     public function __toString()
     {
         return $this->label;
+    }
+
+    public function getChef(): ?User
+    {
+        return $this->chef;
+    }
+
+    public function setChef(?User $chef): self
+    {
+        $this->chef = $chef;
+
+        return $this;
     }
 }

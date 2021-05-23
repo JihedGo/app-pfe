@@ -35,6 +35,10 @@ class DepartmentController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            $chef = $department->getChef();
+            $chef->setIsChef(true);
+            $this->getDoctrine()->getManager()->flush();
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($department);
             $entityManager->flush();
