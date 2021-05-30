@@ -38,14 +38,13 @@ class EnseignantController extends AbstractController
     public function new(Request $request): Response
     {
         $user = new User();
-        $pass = "secret#123";
-        $user->setPassword($this->encoder->encodePassword($user, $pass));
-        $user->setRole("ROLE_TEACHER");
-        
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $user->setPassword($this->encoder->encodePassword($user, $user->getCin()));
+            $user->setRole("ROLE_TEACHER");
+            $user->setIsChef(false);
             $entityManager = $this->getDoctrine()->getManager();
             $user->setEmail($user->getCin());
             $entityManager->persist($user);

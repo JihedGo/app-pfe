@@ -12,7 +12,7 @@
                             <li class="breadcrumb-item"><a href="{{ path('app') }}">Dashboard</a></li>
                             <li class="breadcrumb-item active">Demandes</li>
                         </ol>
-                        
+
                         <div class="card mb-4">
                             <div class="card-header">
                                 <i class="fas fa-table mr-1"></i>
@@ -26,6 +26,7 @@
                                                 <th>#</th>
                                                 <th>Pfe</th>
                                                 <th>Etudiant</th>
+                                                <th>Binome</th>
                                                 <!--<th>Actions</th>-->
                                             </tr>
                                         </thead>
@@ -33,7 +34,7 @@
                                             <tr>
                                                 <th>#</th>
                                                 <th>Pfe</th>
-                                                <th>Etudiant</th>
+                                                <th>Binome</th>
                                                 <!--<th>Actions</th>-->
                                             </tr>
                                         </tfoot>
@@ -43,10 +44,13 @@
                                                 <td>#{{ d.id }}</td>
                                                 <td>{{ d.pfe.title }}</td>
                                                 <td>{{ d.student.firstName }} {{ d.student.lastName }}</td>
+                                                {% if d.binome %}
+                                                     <td>{{ d.binome.firstName }} {{ d.binome.lastName }}</td>
+                                                {% endif %}
                                                 <td><a href="{{ path('accept_demand',{'id':d.id}) }}" class="btn btn-outline-success">Accepter</a></td>
-                                                <td><a href="{{ path('give_reason_refusal',{'id':d.id}) }}" class="btn btn-outline-danger">Refuser</a></td>
+                                                <!--<td><a href="{{ path('give_reason_refusal',{'id':d.id}) }}" class="btn btn-outline-danger">Refuser</a></td>-->
                                             </tr>
-                                        {% endfor %} 
+                                        {% endfor %}
                                         </tbody>
                                     </table>
                                 </div>
@@ -65,4 +69,3 @@
             <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js" crossorigin="anonymous"></script>
             <script src="{{ asset('assets/demo/datatables-demo.js') }}"></script>
             {% endblock %}
-      

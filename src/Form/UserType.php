@@ -21,7 +21,7 @@ class UserType extends AbstractType
             ->add('address', TextareaType::class, ['label'=>"Adresse",'attr'=>['class'=>'form-control']])
             ->add('grade',ChoiceType::class,[
                 'choices'=>[
-                    
+
                     'PES'=>'PES',
                     'AC'=> 'AC',
                     'MA'=>'MA',

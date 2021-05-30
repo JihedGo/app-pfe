@@ -46,6 +46,10 @@ class EtudiantController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
+            $user->setRole("ROLE_STUDENT");
+            $user->setIsChef(false);
+            //$pass = "secret#123";
+            $user->setPassword($this->encoder->encodePassword($user, $user->getCin()));
             $user->setEmail($user->getCin());
             $entityManager->persist($user);
             $entityManager->flush();

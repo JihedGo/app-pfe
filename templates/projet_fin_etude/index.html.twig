@@ -11,7 +11,7 @@
                             <li class="breadcrumb-item"><a href="{{ path('app') }}">Dashboard</a></li>
                             <li class="breadcrumb-item active">Offres PFEs</li>
                         </ol>
-                        
+
                         <div class="card mb-4">
                             <div class="card-header">
                                 <i class="fas fa-table mr-1"></i>
@@ -38,7 +38,7 @@
                                         </thead>
                                         <tfoot>
                                             <tr>
-                                            
+
                                                 <th>Titre</th>
                                                 <th>Description</th>
                                                 <th>Proposé par</th>
@@ -56,7 +56,10 @@
                                                 <td>{{ projet_fin_etude.publishedAt ? projet_fin_etude.publishedAt|date('Y-m-d H:i:s') : '' }}</td>
                                                 <td>
                                                 {% if app.user.role == "ROLE_STUDENT" %}
+                                                    {# {{ dump(app.user.postules) }} #}
+                                                    {% if app.user.postules %}
                                                     <a href="{{ path('apply_to_pfe', {'id':projet_fin_etude.id } ) }}" class="btn btn-success btn-sm">postuler</a>
+                                                    {% endif %}
                                                 {% endif %}
 </td>
                                                 <!--<td>
@@ -71,7 +74,7 @@
                                         {% endfor %}
                                         </tbody>
                                     </table>
-                                    
+
                                 </div>
                             </div>
                         </div>

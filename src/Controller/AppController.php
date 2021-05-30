@@ -13,7 +13,7 @@ class AppController extends AbstractController
      * @Route("/app", name="app")
      */
     public function index(): Response
-    {   
+    {
         $nbr_etudiants = count($this->getDoctrine()->getRepository(User::class)->findBy(['role'=>"ROLE_STUDENT"]));
         $nbr_teachers = count($this->getDoctrine()->getRepository(User::class)->findBy(['role'=>"ROLE_TEACHER"]));
         /*$nbr_etudiants = count($this->getDoctrine()->getRepository(User::class)->findBy(['role'=>"ROLE_"]));
@@ -24,4 +24,6 @@ class AppController extends AbstractController
             'teachers' => $nbr_teachers
         ]);
     }
+
+
 }

@@ -44,6 +44,11 @@ class Postule
      */
     private $reason;
 
+    /**
+     * @ORM\OneToOne(targetEntity=User::class, cascade={"persist", "remove"})
+     */
+    private $binome;
+
    
 
     public function getId(): ?int
@@ -107,6 +112,18 @@ class Postule
     public function setReason(?string $reason): self
     {
         $this->reason = $reason;
+
+        return $this;
+    }
+
+    public function getBinome(): ?User
+    {
+        return $this->binome;
+    }
+
+    public function setBinome(?User $binome): self
+    {
+        $this->binome = $binome;
 
         return $this;
     }

@@ -6,6 +6,7 @@ use App\Entity\Postule;
 use App\Entity\ProjetFinEtude;
 use App\Entity\Salle;
 use App\Entity\User;
+use App\Form\PostuleType;
 use App\Form\ReasonType;
 use App\Repository\PostuleRepository;
 use DateTime;
@@ -13,6 +14,7 @@ use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
+use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -24,24 +26,51 @@ class CustomController extends AbstractController
     /**
      * @Route("/postule/{id}", name="apply_to_pfe")
      */
-    public function postule(ProjetFinEtude $pfe): Response
-    {   
-       
-        $user = $this->getUser();
+    public function postule(ProjetFinEtude $pfe, Request $request): Response
+    {
+        $etudiantConnecte = $this->getUser();
+        if($etudiantConnecte->getPostules()){
+            $this->addFlash('info', 'Vous etes deja postulé');
+            return $this->redirectToRoute('projet_fin_etude_index');
+        }
+        die();
+        $postule = new Postule();
+        $postule->setStudent($etudiantConnecte);
+        $postule->setPfe($pfe);
+        $postule->setPostuledAt(new \DateTime());
+        $postule->setIsAccepted(false);
+        $postule->setReason(null);
+        //dd($postule);
+        $form = $this->createForm(PostuleType::class, $postule);
+        $form->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid()){
+            $tested = $postule->getBinome();
+            $postuleChecked = $this->getDoctrine()->getRepository(Postule::class)->findOneBy(['student'=>$tested]);
+            if($postuleChecked){
+                $form->get('binome')->addError(new FormError('Choisir un autre binome cet etudiant est deja postulé pour un projet'));
+                return null;
+            }
+            $this->getDoctrine()->getManager()->persist($postule);
+            $this->getDoctrine()->getManager()->flush();
+            return $this->redirectToRoute('app');
+        }
+        return $this->render('app/postuler.html.twig',['form'=>$form->createView()]);
+        die();
+        /*$user = $this->getUser();
         $demande = $this->getDoctrine()->getRepository(Postule::class)->findOneBy(['pfe'=>$pfe,'student'=>$user]);
         if($demande){
             $this->addFlash('info', "vous avez postuler dans un projet");
             return $this->redirectToRoute('projet_fin_etude_index');
-        } 
+        }
         $postule = new Postule();
         $postule->setIsAccepted(false)
                 ->setPfe($pfe)
                 ->setStudent($user)
                 ->setPostuledAt(new \DateTime());
-                //dd($postule);        
+                //dd($postule);
         $this->getDoctrine()->getManager()->persist($postule);
         $this->getDoctrine()->getManager()->flush();
-        return $this->redirectToRoute('app');
+        return $this->redirectToRoute('app');*/
     }
 
     /**
@@ -86,7 +115,7 @@ class CustomController extends AbstractController
 
     /*
      * @Route("/refuse/{id}", name="refuse_demand")
-     
+
     public function refuse(Postule $postule){
         dd($postule);
     }*/
@@ -106,7 +135,7 @@ class CustomController extends AbstractController
             }
         }
         return $this->render('app/encadrements.html.twig',['encadrements'=>$myEncadrements]);
-       
+
     }
 /**
      * @Route("/validate/pfe/{id}", name="validate_pfe")
@@ -164,7 +193,7 @@ class CustomController extends AbstractController
             return $this->redirectToRoute('app');
         }
         return $this->render('app/validate-pfe.html.twig', ['form'=>$form->createView(),'projet'=>$pfe]);
-        
+
     }
     /**
      * @Route("/given_reason/{id}", name="give_reason_refusal")
@@ -188,7 +217,7 @@ class CustomController extends AbstractController
     public function myProject(){
         $me = $this->getUser();
         $myproject = $this->getDoctrine()->getRepository(Postule::class)->findOneBy(['student'=>$me,'isAccepted'=>true]);
-        
+
         return $this->render('app/my-project.html.twig', ['project'=>$myproject]);
     }
 
@@ -207,5 +236,5 @@ class CustomController extends AbstractController
         return $this->render('demandes/refused.html.twig',['demandes'=>$postuleRepo->getRefusedPostules($user)]);
     }
 
-    
+
 }

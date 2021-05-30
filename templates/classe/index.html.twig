@@ -5,16 +5,16 @@
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid">
-                        <h1 class="mt-4">Classes</h1>
+                        <h1 class="mt-4">Filières</h1>
                         <ol class="breadcrumb mb-4">
                             <li class="breadcrumb-item"><a href="{{ path('app') }}">Dashboard</a></li>
-                            <li class="breadcrumb-item active">Classes</li>
+                            <li class="breadcrumb-item active">Filières</li>
                         </ol>
-                        
+
                         <div class="card mb-4">
                             <div class="card-header">
                                 <i class="fas fa-table mr-1"></i>
-                                Liste de classes
+                                Liste de Filières
                             </div>
                             <div class="card-body">
                                 <div class="table-responsive">
@@ -24,7 +24,7 @@
                                             <tr>
                                                 <th>#</th>
                                                 <th>Departement</th>
-                                                <th>Classes</th>
+                                                <th>Filières</th>
                                                 <!--<th>Actions</th>-->
                                             </tr>
                                         </thead>
@@ -32,13 +32,13 @@
                                             <tr>
                                                 <th>#</th>
                                                 <th>Departement</th>
-                                                <th>Classes</th>
+                                                <th>Filière</th>
                                                 <!--<th>Actions</th>-->
                                             </tr>
                                         </tfoot>
                                         <tbody>
                                         {% for dep in depts %}
-                                            
+
                                             <tr>
                                                 <td>#{{ dep.id }}</td>
                                                 <td>#{{ dep.label }}</td>
@@ -46,7 +46,7 @@
                                                     <table class="table table-hover">
                                                         <thead>
                                                             <tr>
-                                                                <th>Classe</th>
+                                                                <th>Filière</th>
                                                                 <th>Niveau</th>
                                                             </tr>
                                                         </thead>
@@ -65,10 +65,10 @@
                                                              {% endif %}
                                                         </tbody>
                                                     </table>
-                                                    
+
                                                 </td>
                                             </tr>
-                                        {% endfor %} 
+                                        {% endfor %}
                                         </tbody>
                                     </table>
                                 </div>

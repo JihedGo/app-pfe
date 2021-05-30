@@ -3,15 +3,15 @@
                     <div class="sb-sidenav-menu">
                         <div class="nav">
                             <div class="sb-sidenav-menu-heading"></div>
-                            
+
                                 <a class="nav-link" href="{{ path('app') }}">
                                     <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                                     Dashboard
                                 </a>
                                 {% if app.user.role == "ROLE_AGENT" %}
-                                
+
                                 <div class="sb-sidenav-menu-heading">Administration</div>
-                                
+
                                 <a class="nav-link" href="{{ path('enseignant_index') }}">
                                     <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
                                     Enseignants
@@ -22,7 +22,7 @@
                                 </a>
                                 <a class="nav-link" href="{{ path('classe_index') }}">
                                     <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
-                                    Classes
+                                    Filières
                                 </a>
 
                                 <a class="nav-link" href="{{ path('salle_index') }}">
@@ -30,8 +30,8 @@
                                     Salles
                                 </a>
 
-                               
-                           
+
+
                             <div class="sb-sidenav-menu-heading">Projets fin d'études</div>
                              <a class="nav-link" href="{{ path('projet_fin_etude_administration') }}">
                                     <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
