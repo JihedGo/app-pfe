@@ -2,9 +2,13 @@
 
 namespace App\Controller;
 
+use App\Entity\User;
+use App\Form\ProfilType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class SecurityController extends AbstractController
@@ -32,5 +36,23 @@ class SecurityController extends AbstractController
     public function logout()
     {
         throw new \LogicException('This method can be blank - it will be intercepted by the logout key on your firewall.');
+    }
+
+    /**
+     * @Route("/profil/{id}", name="display_profil")
+     */
+    public function profil(User $user, Request $request, UserPasswordEncoderInterface $encoder){
+        $form = $this->createForm(ProfilType::class, $user);
+        $form->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid()){
+            if($user->getChangePassword()){
+
+                $hash = $encoder->encodePassword($user,$user->getChangePassword());
+                $user->setPassword($hash);
+            }
+            $this->getDoctrine()->getManager()->flush();
+            return $this->redirectToRoute('app');
+        }
+        return $this->render('security/profil.html.twig',['form'=>$form->createView()]);
     }
 }

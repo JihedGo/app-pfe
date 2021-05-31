@@ -29,11 +29,15 @@ class CustomController extends AbstractController
     public function postule(ProjetFinEtude $pfe, Request $request): Response
     {
         $etudiantConnecte = $this->getUser();
-        if($etudiantConnecte->getPostules()){
+        /*dump($etudiantConnecte);
+        dump($etudiantConnecte->getPostules());
+        foreach ($etudiantConnecte->getPostules() as $p) {
+           dump($p);
+        }*/
+        if(count($etudiantConnecte->getPostules())>0){
             $this->addFlash('info', 'Vous etes deja postulé');
             return $this->redirectToRoute('projet_fin_etude_index');
         }
-        die();
         $postule = new Postule();
         $postule->setStudent($etudiantConnecte);
         $postule->setPfe($pfe);

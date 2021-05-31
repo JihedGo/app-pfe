@@ -116,7 +116,7 @@ class User implements UserInterface
      */
     private $isChef;
 
-
+    private $changePassword;
 
     public function __construct()
     {
@@ -476,6 +476,18 @@ class User implements UserInterface
     public function setIsChef(bool $isChef): self
     {
         $this->isChef = $isChef;
+
+        return $this;
+    }
+
+    public function getChangePassword(): ?String
+    {
+        return $this->changePassword;
+    }
+
+    public function setChangePassword(String $changePassword): self
+    {
+        $this->changePassword = $changePassword;
 
         return $this;
     }

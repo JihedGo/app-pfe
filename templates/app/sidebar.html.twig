@@ -1,5 +1,5 @@
 
-<nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+                <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
                     <div class="sb-sidenav-menu">
                         <div class="nav">
                             <div class="sb-sidenav-menu-heading"></div>
@@ -7,6 +7,10 @@
                                 <a class="nav-link" href="{{ path('app') }}">
                                     <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                                     Dashboard
+                                </a>
+                                <a class="nav-link" href="{{ path('display_profil',{'id':app.user.id}) }}">
+                                    <div class="sb-nav-link-icon"><i class="fas fa-user"></i></div>
+                                    Mon Profil
                                 </a>
                                 {% if app.user.role == "ROLE_AGENT" %}
 
