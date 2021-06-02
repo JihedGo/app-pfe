@@ -22,7 +22,12 @@
                             <div class="card-body">
                                 <div class="table-responsive">
                                     <a href="{{ path('enseignant_new') }}" class="btn btn-primary mb-2"> {% if app.user.role == "ROLE_CHEF" %} + Ajouter Enseignant {% else %} + Ajouter Chef {% endif %}</a>
-                           <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                     {% for message in app.flashes('success') %}
+                                        <div class="alert alert-success">
+                                            {{ message }}
+                                        </div>
+                                    {% endfor %}
+                                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                         <thead>
                                              <tr>
                                                 <th>CIN</th>
@@ -45,7 +50,7 @@
                                                 <td>{{ user.grade }}</td>
                                                 <td>{{ user.emailAddress }}</td>
                                                 <td>
-                                                    <a href="#" class="btn btn-danger">supprimer</a>
+                                                    <a href="{{ path('delete_teacher',{'id': user.id}) }}" class="btn btn-danger">supprimer</a>
                                                     <a href="#" class="btn btn-success">activer</a>
                                                     <a href="#" class="btn btn-warning">disactiver</a>
                                                 </td>

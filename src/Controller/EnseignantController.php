@@ -27,8 +27,15 @@ class EnseignantController extends AbstractController
      */
     public function index(UserRepository $userRepository): Response
     {
+        $connected = $this->getUser();
+        //$dept = $this->
+        if($connected->getRole() == "ROLE_AGENT"){
+            $users = $userRepository->findBy(['role'=>"ROLE_CHEF"]);
+        }else{
+            $users = $userRepository->findBy(['role'=>"ROLE_TEACHER"]);
+        }
         return $this->render('enseignant/index.html.twig', [
-            'users' => $userRepository->findBy(['role'=>"ROLE_TEACHER"]),
+            'users' => $users,
         ]);
     }
 
@@ -40,9 +47,15 @@ class EnseignantController extends AbstractController
         $user = new User();
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
-
+        $connected = $this->getUser();
         if ($form->isSubmitted() && $form->isValid()) {
             $user->setPassword($this->encoder->encodePassword($user, $user->getCin()));
+            /*if($connected->getRole() == "ROLE_AGENT"){
+
+                $user->setRole("ROLE_CHEF");
+            }else{
+                $user->setRole("ROLE_TEACHER");
+            }*/
             $user->setRole("ROLE_TEACHER");
             $user->setIsChef(false);
             $entityManager = $this->getDoctrine()->getManager();
@@ -100,6 +113,16 @@ class EnseignantController extends AbstractController
             $entityManager->flush();
         }
 
+        return $this->redirectToRoute('enseignant_index');
+    }
+
+     /**
+     * @Route("/delete/teacher/{id}", name="delete_teacher")
+     */
+    public function deleteStudent(User $teacher){
+        $this->getDoctrine()->getManager()->remove($teacher);
+        $this->getDoctrine()->getManager()->flush();
+        $this->addFlash('success',"suppression terminée");
         return $this->redirectToRoute('enseignant_index');
     }
 }

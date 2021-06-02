@@ -22,7 +22,12 @@
                             <div class="card-body">
                                 <div class="table-responsive">
                                     <a href="{{ path('etudiant_new') }}" class="btn btn-primary mb-2"> + Ajouter Etudiant</a>
-                           <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                     {% for message in app.flashes('success') %}
+                                        <div class="alert alert-success">
+                                            {{ message }}
+                                        </div>
+                                    {% endfor %}
+                                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                         <thead>
                                              <tr>
                                                 <th>CIN</th>
@@ -34,17 +39,7 @@
                                                 <!--<th>actions</th>-->
                                             </tr>
                                         </thead>
-                                        <tfoot>
-                                            <tr>
-                                                <th>CIN</th>
-                                                <th>Prénom</th>
-                                                <th>Nom</th>
-                                                <th>Tél</th>
-                                                <th>Filière</th>
-                                                <th>Email</th>
-                                                <!--<th>actions</th>-->
-                                            </tr>
-                                        </tfoot>
+                                       
                                         <tbody>
                                        {% for user in users %}
                                             <tr>
@@ -54,10 +49,11 @@
                                                 <td>{{ user.tel }}</td>
                                                 <td>{{ user.classe.label }}</td>
                                                 <td>{{ user.emailAddress }}</td>
-                                                <!--<td>
-                                                    <a href="{{ path('enseignant_show', {'id': user.id}) }}">show</a>
-                                                    <a href="{{ path('enseignant_edit', {'id': user.id}) }}">edit</a>
-                                                </td>-->
+                                                <td>
+                                                    <a href="#" class="btn btn-danger">supprimer</a>
+                                                    <a href="#" class="btn btn-success">activer</a>
+                                                    <a href="#" class="btn btn-warning">disactiver</a>
+                                                </td>
                                             </tr>
                                         {% endfor %}
                                         </tbody>

@@ -20,12 +20,12 @@
                             <div class="card-body">
                                 <div class="table-responsive">
                                  {% for message in app.flashes('info') %}
-            <div class="alert alert-info">
-                {{ message }}
-            </div>
-        {% endfor %}
+                                    <div class="alert alert-info">
+                                        {{ message }}
+                                    </div>
+                                 {% endfor %}
                                   
-                           <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                         <thead>
                                              <tr>
                                                 <th>Titre</th>
@@ -36,17 +36,7 @@
                                                 <!--<th>actions</th>-->
                                             </tr>
                                         </thead>
-                                        <tfoot>
-                                            <tr>
-                                            
-                                                <th>Titre</th>
-                                                <th>Encadreur</th>
-                                                <th>Etudiant</th>
-                                                <th>Etat</th>
-                                                <th>Actions</th>
-                                                <!--<th>actions</th>-->
-                                            </tr>
-                                        </tfoot>
+                                        
                                         <tbody>
                                         {% for postule in projet_fin_etudes %}
                                             

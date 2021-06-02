@@ -106,4 +106,14 @@ class EtudiantController extends AbstractController
 
         return $this->redirectToRoute('etudiant_index');
     }
+
+    /**
+     * @Route("/delete/student/{id}", name="delete_student")
+     */
+    public function deleteStudent(User $student){
+        $this->getDoctrine()->getManager()->remove($student);
+        $this->getDoctrine()->getManager()->flush();
+        $this->addFlash('success',"suppression terminée");
+        return $this->redirectToRoute('etudiant_index');
+    }
 }
