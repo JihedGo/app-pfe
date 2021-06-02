@@ -8,20 +8,20 @@
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid">
-                        <h1 class="mt-4">Enseignants</h1>
+                        <h1 class="mt-4">{% if app.user.role == "ROLE_AGENT" %} Chefs de départements  {% else %} Enseignants {% endif %}</h1>
                         <ol class="breadcrumb mb-4">
                             <li class="breadcrumb-item"><a href="{{ path('app') }}">Dashboard</a></li>
-                            <li class="breadcrumb-item active">Enseignants</li>
+                            <li class="breadcrumb-item active">{% if app.user.role == "ROLE_AGENT" %} Chefs de départements  {% else %} Enseignants {% endif %}</li>
                         </ol>
                         
                         <div class="card mb-4">
                             <div class="card-header">
                                 <i class="fas fa-table mr-1"></i>
-                                Liste de enseignants
+                                Liste de {% if app.user.role == "ROLE_AGENT" %} Chefs de départements  {% else %} Enseignants {% endif %}
                             </div>
                             <div class="card-body">
                                 <div class="table-responsive">
-                                    <a href="{{ path('enseignant_new') }}" class="btn btn-primary mb-2"> + Ajouter Enseignant</a>
+                                    <a href="{{ path('enseignant_new') }}" class="btn btn-primary mb-2"> {% if app.user.role == "ROLE_CHEF" %} + Ajouter Enseignant {% else %} + Ajouter Chef {% endif %}</a>
                            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                         <thead>
                                              <tr>
@@ -31,20 +31,10 @@
                                                 <th>Tél</th>
                                                 <th>Grade</th>
                                                 <th>Email</th>
-                                                <!--<th>actions</th>-->
+                                                <th>actions</th>
                                             </tr>
                                         </thead>
-                                        <tfoot>
-                                            <tr>
-                                                <th>CIN</th>
-                                                <th>Prénom</th>
-                                                <th>Nom</th>
-                                                <th>Tél</th>
-                                                <th>Grade</th>
-                                                <th>Email</th>
-                                                <!--<th>actions</th>-->
-                                            </tr>
-                                        </tfoot>
+                                       
                                         <tbody>
                                        {% for user in users %}
                                             <tr>
@@ -54,10 +44,11 @@
                                                 <td>{{ user.tel }}</td>
                                                 <td>{{ user.grade }}</td>
                                                 <td>{{ user.emailAddress }}</td>
-                                                <!--<td>
-                                                    <a href="{{ path('enseignant_show', {'id': user.id}) }}">show</a>
-                                                    <a href="{{ path('enseignant_edit', {'id': user.id}) }}">edit</a>
-                                                </td>-->
+                                                <td>
+                                                    <a href="#" class="btn btn-danger">supprimer</a>
+                                                    <a href="#" class="btn btn-success">activer</a>
+                                                    <a href="#" class="btn btn-warning">disactiver</a>
+                                                </td>
                                             </tr>
                                         {% endfor %}
                                         </tbody>

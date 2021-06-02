@@ -40,7 +40,7 @@ class UserType extends AbstractType
                 'attr'=>['class'=>"form-control"]
             ])
             ->add('emailAddress', EmailType::class,['label'=>"Email",'attr'=>['class'=>'form-control']])
-            ->add('department',null, ['label'=>"Departement",'attr'=>['class'=>'form-control']])
+            //->add('department',null, ['label'=>"Departement",'attr'=>['class'=>'form-control']])
         ;
     }
 
