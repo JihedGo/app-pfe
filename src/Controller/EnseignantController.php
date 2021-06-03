@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Department;
 use App\Entity\User;
 use App\Form\UserType;
 use App\Repository\UserRepository;
@@ -29,8 +30,14 @@ class EnseignantController extends AbstractController
     {
         $connected = $this->getUser();
         //$dept = $this->
-        if($connected->getRole() == "ROLE_AGENT"){
+        /*if($connected->getRole() == "ROLE_AGENT"){
             $users = $userRepository->findBy(['role'=>"ROLE_CHEF"]);
+        }else{
+            
+        }*/
+        if($connected->getIsChef()){
+            $monDept = $this->getDoctrine()->getRepository(Department::class)->findOneBy(['chef'=>$connected]);
+            $users = $userRepository->findBy(['role'=>"ROLE_TEACHER",'department'=>$monDept]);
         }else{
             $users = $userRepository->findBy(['role'=>"ROLE_TEACHER"]);
         }
@@ -56,6 +63,10 @@ class EnseignantController extends AbstractController
             }else{
                 $user->setRole("ROLE_TEACHER");
             }*/
+            if($connected->getIsChef()){
+                $monDept = $this->getDoctrine()->getRepository(Department::class)->findOneBy(['chef'=>$connected]);
+                $user->setDepartment($monDept);
+            }
             $user->setRole("ROLE_TEACHER");
             $user->setIsChef(false);
             $entityManager = $this->getDoctrine()->getManager();

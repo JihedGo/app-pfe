@@ -21,7 +21,7 @@
                             </div>
                             <div class="card-body">
                                 <div class="table-responsive">
-                                    <a href="{{ path('enseignant_new') }}" class="btn btn-primary mb-2"> {% if app.user.role == "ROLE_CHEF" %} + Ajouter Enseignant {% else %} + Ajouter Chef {% endif %}</a>
+                                    <a href="{{ path('enseignant_new') }}" class="btn btn-primary mb-2"> {% if app.user.isChef %} + Ajouter Enseignant {% else %} + Ajouter Chef {% endif %}</a>
                                      {% for message in app.flashes('success') %}
                                         <div class="alert alert-success">
                                             {{ message }}

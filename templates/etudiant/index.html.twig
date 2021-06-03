@@ -36,7 +36,7 @@
                                                 <th>Tél</th>
                                                 <th>Filière</th>
                                                 <th>Email</th>
-                                                <!--<th>actions</th>-->
+                                                <th>actions</th>
                                             </tr>
                                         </thead>
                                        
@@ -50,7 +50,7 @@
                                                 <td>{{ user.classe.label }}</td>
                                                 <td>{{ user.emailAddress }}</td>
                                                 <td>
-                                                    <a href="#" class="btn btn-danger">supprimer</a>
+                                                    <a href="{{ path('delete_student',{'id':user.id}) }}" class="btn btn-danger">supprimer</a>
                                                     <a href="#" class="btn btn-success">activer</a>
                                                     <a href="#" class="btn btn-warning">disactiver</a>
                                                 </td>

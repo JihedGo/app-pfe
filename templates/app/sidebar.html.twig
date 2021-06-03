@@ -64,6 +64,10 @@
                                 <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
                                 Liste Offres
                             </a>
+                            <a class="nav-link" href="#">
+                                <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
+                                Sujets Etudiants
+                            </a>
                             <!--<a class="nav-link" href="{{ path('etudiant_index') }}">
                                 <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
                                 Propositions Etudiants
@@ -103,6 +107,17 @@
                                 Les demandes refusées
                             </a>
                             {% endif %}
+                            {% if app.user.isChef %}
+                            <div class="sb-sidenav-menu-heading">Menu</div>
+                            <a class="nav-link" href="{{ path('projet_fin_etude_administration') }}">
+                                <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
+                                Projets Fin Etudes
+                            </a>
+                            <a class="nav-link" disabled href="{{ path('enseignant_index') }}">
+                                <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
+                                Encadreurs
+                            </a>
+                            {% endif %}
 
                         </div>
                     </div>
@@ -113,7 +128,11 @@
                         {% elseif app.user.role == 'ROLE_STUDENT'  %}
                             Etudiant
                         {% else %}
-                            Enseignant
+                            {% if app.user.isChef %}
+                                Chef département
+                            {% else %}
+                                Enseignant
+                            {% endif %}
                         {% endif %}
                     </div>
                 </nav>

@@ -83,15 +83,19 @@
                                                 {% if app.user.role != "ROLE_AGENT" %}
                                                     {% if app.user.classe %}
                                                     <li class="list-group-item">
-
                                                            filiére: {{ app.user.classe.label }}
-
-                                                            --
-
                                                     </li>
                                                     {% else %}
                                                     <li class="list-group-item">
-                                                        Department: {{ app.user.department.label }}
+                                                        {% if department %}
+                                                            Department: {{ department.label }}
+                                                        {% endif %} 
+                                                        {% if app.user.department %}
+                                                             Department: {{ app.user.department.label }}
+                                                        {% endif %}
+                                                        {% if app.user.classe %}
+                                                            Department: {{ app.user.classe.department.label }}
+                                                        {% endif %}
                                                     </li>
                                                     {% endif %}
                                                 {% endif %}
